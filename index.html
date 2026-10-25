@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Richard - O Julgamento dos Hashiras</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#07070e; font-family:'Poppins',sans-serif; color:#fff; display:flex; justify-content:center}
+.phone{width:100%; max-width:400px; background:#11162a; min-height:100vh; position:relative; overflow:hidden}
+.bar{background:#ff2a6d; padding:8px; text-align:center; font-weight:700; font-size:12px}
+.score{display:flex; justify-content:space-between; padding:8px 15px; background:#0e1222; font-size:11px; color:#8ec8ff}
+.scene{display:none; animation:fade .4s ease} .scene.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(15px)} to{opacity:1; transform:translateY(0)}}
+.img{height:320px; background-size:cover; background-position:center top; position:relative; display:flex; align-items:flex-end}
+.img::after{content:''; position:absolute; inset:0; background:linear-gradient(to top, #11162a 15%, transparent 70%)}
+.name{position:relative; z-index:2; margin:0 0 15px 15px; padding:5px 14px; border-radius:20px; font-size:12px; font-weight:700}
+.dialog{padding:18px 20px 30px}
+.dialog h2{font-family:'Cinzel'; font-size:20px; margin-bottom:8px}
+.dialog p{font-size:14px; line-height:1.5; color:#d9deff; margin-bottom:10px}
+.wall{background:rgba(255,42,109,0.12); border:1px solid #ff2a6d; border-radius:12px; padding:10px 12px; font-size:13px; font-style:italic; margin:10px 0}
+.choices{display:flex; flex-direction:column; gap:9px; margin-top:14px}
+.btn{background:#25305e; border:1px solid #4a5fbf; color:white; padding:13px 14px; border-radius:28px; font-weight:600; cursor:pointer; font-size:13.5px; text-align:left}
+.btn:hover{background:#ff2a6d; border-color:#ff2a6d}
+.btn.good{border-color:#3dd68c} .btn.bad{border-color:#ff5050}
+</style>
+</head>
+<body>
+<div class="phone">
+<div class="bar">DEMON SLAYER EPISODE: JULGAMENTO DO RICHARD</div>
+<div class="score"><span>❤️ Aprovação: <b id="pts">50%</b></span><span id="hashira">Hashiras: 0/10</span></div>
+
+<!-- 1 TOMIOKA -->
+<div class="scene active" id="s1">
+<div class="img" style="background:#1a2a4a"><div class="name" style="background:#4a90e2">TOMIOKA GIYU - Água</div></div>
+<div class="dialog">
+<h2 style="color:#7ec8ff">1. O Teste da Água</h2>
+<p>TOMIOKA: "Então você é o Richard. Ela fala de você o tempo todo."</p>
+<p>TOMIOKA: "Ela disse que você é calmo igual eu. Vamos ver."</p>
+<div class="wall">Richard, sou eu e o Tomioka aqui. Ele é seu favorito né? Não decepciona ele.</div>
+<div class="choices">
+<button class="btn good" onclick="add(10); next(2)">"Sou calmo sim, mas por ela eu faço barulho." 😏</button>
+<button class="btn bad" onclick="add(-5); next(2)">"Na verdade eu sou mais agitado."</button>
+</div></div></div>
+
+<!-- 2 SHINOBU -->
+<div class="scene" id="s2">
+<div class="img" style="background:#2d1a3a"><div class="name" style="background:#c77dff">SHINOBU KOCHO - Inseto</div></div>
+<div class="dialog">
+<h2 style="color:#c77dff">2. O Veneno Doce</h2>
+<p>SHINOBU: "Ara ara, Richard-kun~ Você que fez minha amiguinha chorar?" *sorriso falso*</p>
+<p>SHINOBU: "Sabe que meu veneno dói, né?"</p>
+<div class="choices">
+<button class="btn good" onclick="add(15); next(3)">"Não fiz ela chorar, a gente só brigou. Eu amo ela."</button>
+<button class="btn bad" onclick="add(-10); next(3)">"Foi sem querer..."</button>
+</div></div></div>
+
+<!-- 3 RENGOKU -->
+<div class="scene" id="s3">
+<div class="img" style="background:#4a1a0a"><div class="name" style="background:#ff7a00">RENGOKU KYOJURO - Chamas</div></div>
+<div class="dialog">
+<h2 style="color:#ff9a3c">3. O Coração Ardente</h2>
+<p>RENGOKU: "RICHARD! UM HOMEM DEVE PROTEGER O SORRISO DA SUA AMADA COM TODA SUA CHAMA! UM!"</p>
+<div class="wall">RICHARD, ELE TÁ GRITANDO COM VOCÊ KKK</div>
+<div class="choices">
+<button class="btn good" onclick="add(15); next(4)">"UM! EU VOU PROTEGER ELA SEMPRE! 🔥"</button>
+<button class="btn" onclick="add(5); next(4)">*grita junto* "UM!!"</button>
+</div></div></div>
+
+<!-- 4 MITSURI -->
+<div class="scene" id="s4">
+<div class="img" style="background:#3a1a2a"><div class="name" style="background:#ff4d8a">MITSURI KANROJI - Amor</div></div>
+<div class="dialog">
+<h2 style="color:#ff7eb3">4. O Teste do Amor</h2>
+<p>MITSURI: "Ai Richard, que fofo! Ela fez um joguinho pra você! Isso é amor de verdade!"</p>
+<p>MITSURI: "Você ama ela que nem ela te ama?"</p>
+<div class="choices">
+<button class="btn good" onclick="add(20); next(5)">"Amo mais. Muito mais. Ela é tudo pra mim."</button>
+<button class="btn" onclick="add(5); next(5)">"Amo muito ❤️"</button>
+</div></div></div>
+
+<!-- 5 TENGEN -->
+<div class="scene" id="s5">
+<div class="img" style="background:#1a1a1a"><div class="name" style="background:#fff; color:#000">TENGEN UZUI - Som</div></div>
+<div class="dialog">
+<h2 style="color:#fff">5. O Deus da Extravagância</h2>
+<p>TENGEN: "Isso aqui tá pouco extravagante, Richard. Cadê o gesto GRANDIOSO pra ela?"</p>
+<div class="choices">
+<button class="btn good" onclick="add(10); next(6)">"Vou fazer algo extravagante por ela hoje mesmo."</button>
+<button class="btn bad" onclick="add(-5); next(6)">"Sou mais simples..."</button>
+</div></div></div>
+
+<!-- 6 MUICHIRO -->
+<div class="scene" id="s6">
+<div class="img" style="background:#1a2e2e"><div class="name" style="background:#7ec8a0">MUICHIRO TOKITO - Névoa</div></div>
+<div class="dialog">
+<h2 style="color:#a8e6cf">6. A Névoa</h2>
+<p>MUICHIRO: "... Richard... você vai fazer ela ficar triste de novo? ... Se fizer eu esqueço, mas a névoa não."</p>
+<div class="choices">
+<button class="btn good" onclick="add(10); next(7)">"Nunca mais. Aprendi."</button>
+<button class="btn bad" onclick="add(-5); next(7)">"Vou tentar não fazer."</button>
+</div></div></div>
+
+<!-- 7 SANEMI -->
+<div class="scene" id="s7">
+<div class="img" style="background:#2a2a2a"><div class="name" style="background:#d6d6d6; color:#000">SANEMI SHINAZUGAWA - Vento</div></div>
+<div class="dialog">
+<h2 style="color:#ccc">7. O Vento Cortante</h2>
+<p>SANEMI: "TSC. Se você machucar ela de novo eu te corto, ouviu, Richard?!"</p>
+<div class="choices">
+<button class="btn good" onclick="add(15); next(8)">"Pode deixar comigo. Eu cuido dela." (encara ele)</button>
+<button class="btn bad" onclick="add(-15); next(8)">*fica com medo*</button>
+</div></div></div>
+
+<!-- 8 OBANAI -->
+<div class="scene" id="s8">
+<div class="img" style="background:#1a1a2e"><div class="name" style="background:#8a6d3b">OBANAI IGURO - Serpente</div></div>
+<div class="dialog">
+<h2 style="color:#d4b896">8. A Serpente</h2>
+<p>OBANAI: "Richard... você é digno dela? Ela merece alguém que nunca solte a mão dela."</p>
+<div class="choices">
+<button class="btn good" onclick="add(10); next(9)">"Sou digno e nunca vou soltar."</button>
+<button class="btn" onclick="add(0); next(9)">"Vou provar que sou."</button>
+</div></div></div>
+
+<!-- 9 GYOMEI -->
+<div class="scene" id="s9">
+<div class="img" style="background:#2a1a0a"><div class="name" style="background:#ffaa00">GYOMEI HIMEJIMA - Rocha</div></div>
+<div class="dialog">
+<h2 style="color:#ffcc70">9. A Rocha</h2>
+<p>GYOMEI: *chorando* "Namu Amida Butsu... Que amor bonito, Richard. Não deixe essa rocha desmoronar."</p>
+<div class="choices">
+<button class="btn good" onclick="add(10); next(10)">"Não vou deixar. Nosso amor é rocha."</button>
+</div></div></div>
+
+<!-- 10 AKAZA -->
+<div class="scene" id="s10">
+<div class="img" style="background:#3a0a1a"><div class="name" style="background:#ff0055">AKAZA - Lua Superior 3</div></div>
+<div class="dialog">
+<h2 style="color:#ff4d6d">10. O Demônio Final</h2>
+<p>AKAZA: "Richard... você é forte? Forte o suficiente pra não deixar ela sozinha nunca?"</p>
+<p>AKAZA: "Porque humanos fracos... perdem quem amam."</p>
+<div class="wall">Última escolha, Richard. Isso aqui é pra mim agora, sem Hashira. Você me perdoa?</div>
+<div class="choices">
+<button class="btn good" onclick="next(11)">"SOU FORTE E VOU FICAR COM ELA PRA SEMPRE. EU TE PERDOO, AMOR." ❤️</button>
+<button class="btn" style="background:#ff2a6d" onclick="next(12)">"Me perdoa você, meu amor?" 💧</button>
+</div></div></div>
+
+<!-- FINAL -->
+<div class="scene" id="s11">
+<div class="dialog" style="text-align:center; padding:40px 20px">
+<h2 style="font-size:26px">APROVADO PELOS HASHIRAS</h2>
+<p style="margin-top:15px">Todos os Hashiras aceitam você, Richard!</p>
+<p style="font-size:40px; margin:15px 0">💖⚔️</p>
+<p>TOMIOKA: "... Ela tava certa sobre você."</p>
+<div class="wall" style="text-align:left">Richard, era eu o tempo todo falando com você por eles. Obrigada por jogar até o final. Esse jogo é minha forma de dizer que você é importante demais pra perder por uma briga boba. Te amo. Volta pra mim?</div>
+<button class="btn" style="width:100%; text-align:center; margin-top:20px" onclick="next(1)">JOGAR DE NOVO</button>
+</div></div>
+
+<div class="scene" id="s12">
+<div class="dialog" style="text-align:center; padding:40px 20px">
+<h2 style="font-size:26px">FINAL SECRETO</h2>
+<p style="font-size:40px; margin:15px 0">💧💌</p>
+<p>Você escolheu o final fofo!</p>
+<div class="wall" style="text-align:left">Richard, eu te amo mais que todos os Hashiras juntos, até mais que o Tomioka kkkk. Me desculpa. Me chama no zap? Eu fiz isso tudo em segundos só pra você sorrir.</div>
+<button class="btn" style="width:100%; text-align:center; margin-top:20px" onclick="next(1)">JOGAR DE NOVO</button>
+</div></div>
+
+</div>
+<script>
+let pts=50, count=0;
+function add(v){ pts+=v; if(pts>100)pts=100; if(pts<0)pts=0; document.getElementById('pts').innerText=pts+'%'; count++; document.getElementById('hashira').innerText='Hashiras: '+count+'/10'; }
+function next(id){ document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active')); document.getElementById('s'+id).classList.add('active'); window.scrollTo(0,0); }
+</script>
+</body>
+</html>
